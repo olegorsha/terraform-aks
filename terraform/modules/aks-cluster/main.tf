@@ -185,19 +185,19 @@ data "azurerm_user_assigned_identity" "kv_secrets_provider" {
   depends_on          = [azurerm_kubernetes_cluster.k8s]
 }
 
-resource "azurerm_role_assignment" "kv_secrets_provider" {
-  scope                = azurerm_key_vault.main.id
-  principal_id         = data.azurerm_user_assigned_identity.kv_secrets_provider.principal_id
-  role_definition_name = "Key Vault Secrets User"
-  skip_service_principal_aad_check = true
-}
-
-resource "azurerm_key_vault_secret" "secret" {
-  key_vault_id = azurerm_key_vault.main.id
-  name         = "demosecret"
-  value        = "demovalue"
-#  depends_on   = [azurerm_role_assignment.kv_role_admin_kva]
-}
+# resource "azurerm_role_assignment" "kv_secrets_provider" {
+  # scope                = azurerm_key_vault.main.id
+  # principal_id         = data.azurerm_user_assigned_identity.kv_secrets_provider.principal_id
+  # role_definition_name = "Key Vault Secrets User"
+  # skip_service_principal_aad_check = true
+# }
+# 
+# resource "azurerm_key_vault_secret" "secret" {
+  # key_vault_id = azurerm_key_vault.main.id
+  # name         = "demosecret"
+  # value        = "demovalue"
+# #  depends_on   = [azurerm_role_assignment.kv_role_admin_kva]
+# }
 
 
 #az role assignment create --assignee-object-id $IDENTITY_ID --role "Key Vault Secrets User" --scope /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG/providers/Microsoft.KeyVault/vaults/$KV
